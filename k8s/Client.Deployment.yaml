@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  labels:
+    app: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: client:1.0
+        args: ["server-service"] # Pass service name connect to as argument
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+        # No need to specify ports for egress
